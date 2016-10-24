@@ -224,9 +224,5 @@ def make_table(docs, headers=('host', )):
     return table
 
 
-def combine_stats(docs):
-    return docs
-
-
 if __name__ == '__main__':
     main()
