@@ -185,8 +185,8 @@ def request(host, method, path, params=None, json=False):
         except Exception as exc:
             return {"error": "Parsing json on '%s': %r" % (resp.text, exc)}
     if resp.text.strip():
-        return {"Response": resp.text.strip()}
-    return {"Response": "OK"}
+        return {"response": resp.text.strip()}
+    return {"response": "OK"}
 
 
 def multi_request(hosts, method, path, params=None, json=False):
@@ -221,6 +221,11 @@ def make_table(docs, headers=('host', )):
     table = prettytable.PrettyTable(columns)
     for doc in docs:
         table.add_row([doc.get(col, '') for col in columns])
+    # Set max widths
+    for key in ('error', 'response'):
+        if key in columns:
+            table.max_width[key] = 100
+    print table.fields
     return table
 
 
